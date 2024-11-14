@@ -34,7 +34,7 @@ namespace Toxic.Endpoints
             {
                 var singleCategory = await category.GetCategoryByIdAsync(id);
 
-                if (id == null)
+                if (singleCategory == null)
                 {
                     return Results.NotFound($"Category id, {id} is does not exist");
                 }
@@ -42,6 +42,7 @@ namespace Toxic.Endpoints
 
             }).WithName("Get a Category.")
               .WithOpenApi()
+              .Produces(StatusCodes.Status404NotFound)
               .Produces<Category>(StatusCodes.Status200OK);
 
             //Update a Category
@@ -93,6 +94,7 @@ namespace Toxic.Endpoints
             .WithOpenApi()
             .Produces<Category>(StatusCodes.Status204NoContent);
 
+            //Create a Category
             group.MapPost("/new", async (ICategoryService category, IMapper mapper, UpsertCategoryDTO createDTO) =>
             {
 
@@ -105,7 +107,7 @@ namespace Toxic.Endpoints
 
 
                 return Results.Created($"/api/category/{createdCategory.Id}", createdCategory);
-            }).WithName("CreateAuthor")
+            }).WithName("Create Category")
             .WithOpenApi()
             .Produces<Category>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
