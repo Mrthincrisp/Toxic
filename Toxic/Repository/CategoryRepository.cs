@@ -53,11 +53,11 @@ namespace Toxic.Repository
             return singleCategory;
         }
 
-        public async Task<Category> UpdateCategoryAsync(int id, IMapper mapper, UpsertCategoryDTO updateCategory)
+        public async Task<Category> UpdateCategoryAsync(int id, IMapper mapper, UpsertCategoryDTO updateDTO)
         {
             var categoryToUpdate = await _context.Categories.FindAsync(id);
 
-            mapper.Map(updateCategory, categoryToUpdate);
+            mapper.Map(updateDTO, categoryToUpdate);
             try
             {
                 await _context.SaveChangesAsync();
