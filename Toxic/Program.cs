@@ -1,3 +1,9 @@
+using Toxic.Mapper;
+using Microsoft.AspNetCore.Http.Json;
+using Toxic.Interfaces;
+using Toxic.Repository;
+using Toxic.Services;
+using Toxic.Endpoints;
 
 namespace Toxic
 {
@@ -9,6 +15,9 @@ namespace Toxic
 
             // Add services to the container.
             builder.Services.AddAuthorization();
+
+            builder.Services.AddAutoMapper(typeof(Program));
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -29,6 +38,10 @@ namespace Toxic
 
             builder.Services.AddNpgsql<ToxicDbContext>(builder.Configuration["ToxicDbConnectionString"]);
 
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+
             var app = builder.Build();
 
             app.UseCors();
@@ -43,6 +56,8 @@ namespace Toxic
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+            
+            app.MapCategoryEndpoints();
 
             app.Run();
         }
