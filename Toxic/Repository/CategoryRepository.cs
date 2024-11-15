@@ -15,6 +15,7 @@ namespace Toxic.Repository
             _context = context;
         }
 
+        //Create a category
         public async Task<Category> CreateCategoryAsync(IMapper mapper, UpsertCategoryDTO createCategory)
         {
             var category = mapper.Map<Category>(createCategory);
@@ -31,6 +32,7 @@ namespace Toxic.Repository
             }
         }
 
+        //Delete a category
         public async Task<Category> DeleteCategoryAsync(int id)
         {
             var categoryToDelete = await _context.Categories.FindAsync(id);
@@ -40,11 +42,13 @@ namespace Toxic.Repository
             return categoryToDelete;
         }
 
+        //Get all categories
         public async Task<List<Category>> GetAllCategoriesAsync()
         {
             return await _context.Categories.ToListAsync();
         }
 
+        //Get a single category
         public async Task<Category> GetCategoryByIdAsync(int id)
         {
             var singleCategory = await _context.Categories
@@ -53,6 +57,7 @@ namespace Toxic.Repository
             return singleCategory;
         }
 
+        //Update a category
         public async Task<Category> UpdateCategoryAsync(int id, IMapper mapper, UpsertCategoryDTO updateDTO)
         {
             var categoryToUpdate = await _context.Categories.FindAsync(id);

@@ -97,6 +97,14 @@ namespace Toxic.Endpoints
             //Create a Category
             group.MapPost("/new", async (ICategoryService category, IMapper mapper, UpsertCategoryDTO createDTO) =>
             {
+                var validationResults = new List<ValidationResult>();
+                var validationContext = new ValidationContext(createDTO);
+                bool isValid = Validator.TryValidateObject(createDTO, validationContext, validationResults, true);
+
+                if (!isValid)
+                {
+                    return Results.BadRequest(validationResults.Select(v => v.ErrorMessage));
+                }
 
                 var createdCategory = await category.CreateCategoryAsync(mapper, createDTO);
 

@@ -10,6 +10,8 @@ namespace Toxic.Mapper
             CreateMap<Category, UpsertCategoryDTO>().ReverseMap();
             CreateMap<Topic, CreateTopicDTO>().ReverseMap();
             CreateMap<Topic,  UpdateTopicDTO>().ReverseMap();
+            CreateMap<Comment, UpdateCommentDTO>().ReverseMap();
+            CreateMap<Comment, CreateCommentDTO>().ReverseMap();
         }
     }
 }

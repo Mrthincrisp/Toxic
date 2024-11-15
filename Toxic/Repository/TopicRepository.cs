@@ -15,6 +15,7 @@ namespace Toxic.Repository
             _context = context; 
         }
 
+        //Create topic
         public async Task<Topic> CreateTopicAsync(IMapper mapper, CreateTopicDTO createDTO)
         {
             var topic = mapper.Map<Topic>(createDTO);
@@ -31,6 +32,7 @@ namespace Toxic.Repository
             }
         }
 
+        // Delete topic
         public async Task<Topic> DeleteTopicAsync(int id)
         {
             var deletedTopic = await _context.Topics.FindAsync(id);
@@ -40,6 +42,7 @@ namespace Toxic.Repository
             return deletedTopic;
         }
 
+        //Get all category topics
         public async Task<List<Topic>> GetAllCategoryTopicsAsync(int categoryid)
         {
             return await _context.Topics
@@ -47,6 +50,7 @@ namespace Toxic.Repository
                 .ToListAsync();
         }
 
+        //Get a single topic
         public async Task<Topic> GetTopicByIdAsync(int id)
         {
             var topic = await _context.Topics
@@ -57,6 +61,7 @@ namespace Toxic.Repository
             return topic;
         }
 
+        //Update a topic
         public async Task<Topic> UpdateTopicAsync(int id, IMapper mapper, UpdateTopicDTO updateDTO)
         {
             var topicToUpdate = await _context.Topics.FindAsync(id);
