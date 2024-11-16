@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System.Security.Cryptography.X509Certificates;
 using Toxic.DTOs;
 using Toxic.Interfaces;
 using Toxic.Models;
@@ -15,29 +14,29 @@ namespace Toxic.Services
             _commentRepo = commentRepo;
         }
 
-        public async Task<Comment> CreateComment(IMapper mapper, CreateCommentDTO createDTO)
+        public async Task<Comment> CreateCommentAsync(IMapper mapper, CreateCommentDTO createDTO)
         {
-            return await _commentRepo.CreateComment(mapper, createDTO);   
+            return await _commentRepo.CreateCommentAsync(mapper, createDTO);   
         }
 
-        public async Task<Comment> DeleteAComment(int id)
+        public async Task<Comment> DeleteACommentAsync(int id)
         {
-            return await _commentRepo.DeleteAComment(id);
+            return await _commentRepo.DeleteACommentAsync(id);
         }
 
-        public async Task<Comment> GetAComment(int id)
+        public async Task<Comment> GetACommentAsync(int id)
         {
-            return await _commentRepo.GetAComment(id);
+            return await _commentRepo.GetACommentAsync(id);
         }
 
-        public async Task<List<Comment>> GetCommentsInTopic(int topicId)
+        public async Task<List<Comment>> GetCommentsInTopicAsync(int topicId)
         {
-            return await _commentRepo.GetCommentsInTopic(topicId);
+            return await _commentRepo.GetCommentsInTopicAsync(topicId);
         }
 
-        public async Task<Comment> UpdateComment(int id, IMapper mapper, UpdateCommentDTO updateDTO)
+        public async Task<Comment> UpdateCommentAsync(int id, IMapper mapper, UpdateCommentDTO updateDTO)
         {
-            return await _commentRepo.UpdateComment(id, mapper, updateDTO);
+            return await _commentRepo.UpdateCommentAsync(id, mapper, updateDTO);
         }
     }
 }
