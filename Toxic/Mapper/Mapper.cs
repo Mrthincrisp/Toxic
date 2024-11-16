@@ -8,10 +8,15 @@ namespace Toxic.Mapper
         public MappingProfile()
         {
             CreateMap<Category, UpsertCategoryDTO>().ReverseMap();
+
             CreateMap<Topic, CreateTopicDTO>().ReverseMap();
             CreateMap<Topic,  UpdateTopicDTO>().ReverseMap();
+
             CreateMap<Comment, UpdateCommentDTO>().ReverseMap();
             CreateMap<Comment, CreateCommentDTO>().ReverseMap();
+
+            CreateMap<User, CreateUserDTO>().ReverseMap();
+            CreateMap<User, UpdateUserDTO>().ReverseMap();
         }
     }
 }
