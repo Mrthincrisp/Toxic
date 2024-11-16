@@ -41,6 +41,14 @@ namespace Toxic
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+            builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
+
+            builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+            builder.Services.AddScoped<IMessageService, MessageService>();
+
+            builder.Services.AddScoped<ITopicRepository, TopicRepository>();
+            builder.Services.AddScoped<ITopicService, TopicService>();
 
             var app = builder.Build();
 
@@ -58,6 +66,9 @@ namespace Toxic
             app.UseAuthorization();
             
             app.MapCategoryEndpoints();
+            app.MapCommentEndpoints();
+            app.MapMessageEndpoints();
+            app.MapTopicEdnpoints();
 
             app.Run();
         }
