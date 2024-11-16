@@ -50,6 +50,9 @@ namespace Toxic
             builder.Services.AddScoped<ITopicRepository, TopicRepository>();
             builder.Services.AddScoped<ITopicService, TopicService>();
 
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
             var app = builder.Build();
 
             app.UseCors();

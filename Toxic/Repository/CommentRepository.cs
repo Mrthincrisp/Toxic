@@ -27,7 +27,7 @@ namespace Toxic.Repository
                 await _context.SaveChangesAsync();
                 return createdComment;
             }
-            catch (DbException)
+            catch (DbUpdateException)
             {
                 return null;
             }
