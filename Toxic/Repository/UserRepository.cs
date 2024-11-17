@@ -10,6 +10,11 @@ namespace Toxic.Repository
     {
         public readonly ToxicDbContext _context;
 
+        public UserRepository(ToxicDbContext context)
+        {
+            _context = context;
+        }
+
         // Delete a user
         public async Task<User> DeleteUserAsync(int id)
         {
@@ -35,7 +40,7 @@ namespace Toxic.Repository
 
             try
             {
-                _context.Add(createdUser);
+                _context.Users.Add(createdUser);
                 await _context.SaveChangesAsync();
                 return createdUser;
             }

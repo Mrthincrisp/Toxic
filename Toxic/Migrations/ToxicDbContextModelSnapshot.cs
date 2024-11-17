@@ -22,21 +22,6 @@ namespace Toxic.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ChatUser", b =>
-                {
-                    b.Property<int>("ChatsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UsersId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ChatsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("UserChats", (string)null);
-                });
-
             modelBuilder.Entity("Toxic.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -435,22 +420,32 @@ namespace Toxic.Migrations
                             Image = "image.url",
                             Uid = "anotherfirebaseIdwouldgohere456",
                             UserName = "Not Derek"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            About = "ur mom",
+                            Admin = false,
+                            Email = "getSmoked@gmail.com",
+                            Image = "image.url",
+                            Uid = "fuckyou",
+                            UserName = "Pissoff"
                         });
                 });
 
-            modelBuilder.Entity("ChatUser", b =>
+            modelBuilder.Entity("Toxic.Models.UserChat", b =>
                 {
-                    b.HasOne("Toxic.Models.Chat", null)
-                        .WithMany()
-                        .HasForeignKey("ChatsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
-                    b.HasOne("Toxic.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("ChatId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId", "ChatId");
+
+                    b.HasIndex("ChatId");
+
+                    b.ToTable("UserChats");
                 });
 
             modelBuilder.Entity("Toxic.Models.Comment", b =>
@@ -474,21 +469,21 @@ namespace Toxic.Migrations
 
             modelBuilder.Entity("Toxic.Models.Message", b =>
                 {
-                    b.HasOne("Toxic.Models.Chat", "Chats")
+                    b.HasOne("Toxic.Models.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Toxic.Models.User", "Users")
+                    b.HasOne("Toxic.Models.User", "User")
                         .WithMany("Messages")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Chats");
+                    b.Navigation("Chat");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Toxic.Models.Topic", b =>
@@ -510,6 +505,25 @@ namespace Toxic.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Toxic.Models.UserChat", b =>
+                {
+                    b.HasOne("Toxic.Models.Chat", "Chat")
+                        .WithMany("UserChats")
+                        .HasForeignKey("ChatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Toxic.Models.User", "User")
+                        .WithMany("UserChats")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chat");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Toxic.Models.Category", b =>
                 {
                     b.Navigation("Threads");
@@ -518,6 +532,8 @@ namespace Toxic.Migrations
             modelBuilder.Entity("Toxic.Models.Chat", b =>
                 {
                     b.Navigation("Messages");
+
+                    b.Navigation("UserChats");
                 });
 
             modelBuilder.Entity("Toxic.Models.Topic", b =>
@@ -532,6 +548,8 @@ namespace Toxic.Migrations
                     b.Navigation("Messages");
 
                     b.Navigation("Topic");
+
+                    b.Navigation("UserChats");
                 });
 #pragma warning restore 612, 618
         }

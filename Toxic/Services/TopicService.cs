@@ -8,6 +8,12 @@ namespace Toxic.Services
     public class TopicService : ITopicService
     {
         private readonly ITopicRepository _repository;
+
+        public TopicService(ITopicRepository topicRepo)
+        {
+            _repository = topicRepo;
+        }
+
         public async Task<Topic> CreateTopicAsync(IMapper mapper, CreateTopicDTO createDTO)
         {
             return await _repository.CreateTopicAsync(mapper, createDTO);
@@ -30,7 +36,7 @@ namespace Toxic.Services
 
         public async Task<Topic> UpdateTopicAsync(int id, IMapper mapper, UpdateTopicDTO updateDTO)
         {
-            return await UpdateTopicAsync(id, mapper, updateDTO);
+            return await _repository.UpdateTopicAsync(id, mapper, updateDTO);
         }
     }
 }

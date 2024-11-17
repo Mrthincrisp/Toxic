@@ -1,4 +1,5 @@
-﻿using Toxic.Services;
+﻿using System.Text.Json.Serialization;
+using Toxic.Services;
 
 namespace Toxic.Models
 {
@@ -6,7 +7,9 @@ namespace Toxic.Models
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public List<User>? Users { get; set; }
+        [JsonIgnore]
+        public List<UserChat>? UserChats { get; set; }
         public List<Message>? Messages { get; set; }
+
     }
 }

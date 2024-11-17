@@ -16,27 +16,27 @@ namespace Toxic.Services
 
         public async Task<Message> CreateAMessage(IMapper mapper, CreateMessageDTO createDTO)
         {
-            return await CreateAMessage(mapper, createDTO);
+            return await _messageRepo.CreateAMessage(mapper, createDTO);
         }
 
         public async Task<Message> DeleteMessageAsync(int id)
         {
-            return await DeleteMessageAsync(id);
+            return await _messageRepo.DeleteMessageAsync(id);
         }
 
         public async Task<List<Message>> GetMessagesInAChatAsync(int id)
         {
-            return await GetMessagesInAChatAsync(id);
+            return await _messageRepo.GetMessagesInAChatAsync(id);
         }
 
-        public Task<Message> GetSingleMessageAsync(int id)
+        public async Task<Message> GetSingleMessageAsync(int id)
         {
-            return GetSingleMessageAsync(id);
+            return await _messageRepo.GetSingleMessageAsync(id);
         }
 
-        public Task<Message> UpdateMessageAsync(int id, IMapper mapper, UpdateMessageDTO updateDTO)
+        public async Task<Message> UpdateMessageAsync(int id, IMapper mapper, UpdateMessageDTO updateDTO)
         {
-            return UpdateMessageAsync(id, mapper, updateDTO);
+            return await _messageRepo.UpdateMessageAsync(id, mapper, updateDTO);
         }
     }
 }

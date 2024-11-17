@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Toxic.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class UserChat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -117,21 +117,21 @@ namespace Toxic.Migrations
                 name: "UserChats",
                 columns: table => new
                 {
-                    ChatsId = table.Column<int>(type: "integer", nullable: false),
-                    UsersId = table.Column<int>(type: "integer", nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    ChatId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserChats", x => new { x.ChatsId, x.UsersId });
+                    table.PrimaryKey("PK_UserChats", x => new { x.UserId, x.ChatId });
                     table.ForeignKey(
-                        name: "FK_UserChats_Chats_ChatsId",
-                        column: x => x.ChatsId,
+                        name: "FK_UserChats_Chats_ChatId",
+                        column: x => x.ChatId,
                         principalTable: "Chats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserChats_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_UserChats_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -192,7 +192,8 @@ namespace Toxic.Migrations
                 values: new object[,]
                 {
                     { 1, "Loves exploring new gadgets and technologies.", true, "Mrthincrisp@gmail.com", "image.url", "firebaseidwillgohere123", "Derek" },
-                    { 2, "Avid music lover with a passion for discovering new artists.", false, "Not_Derek@gmail.com", "image.url", "anotherfirebaseIdwouldgohere456", "Not Derek" }
+                    { 2, "Avid music lover with a passion for discovering new artists.", false, "Not_Derek@gmail.com", "image.url", "anotherfirebaseIdwouldgohere456", "Not Derek" },
+                    { 3, "ur mom", false, "getSmoked@gmail.com", "image.url", "fuckyou", "Pissoff" }
                 });
 
             migrationBuilder.InsertData(
@@ -268,9 +269,9 @@ namespace Toxic.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserChats_UsersId",
+                name: "IX_UserChats_ChatId",
                 table: "UserChats",
-                column: "UsersId");
+                column: "ChatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

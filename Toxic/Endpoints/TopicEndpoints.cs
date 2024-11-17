@@ -8,9 +8,9 @@ namespace Toxic.Endpoints
 {
     public static class TopicEndpoints
     {
-        public static void MapTopicEdnpoints(this IEndpointRouteBuilder routes)
+        public static void MapTopicEndpoints(this IEndpointRouteBuilder routes)
         {
-            var group = routes.MapGroup("/api/topic").WithTags(nameof(Category));
+            var group = routes.MapGroup("/api/topic").WithTags(nameof(Topic));
 
             //Get topics of a category
             group.MapGet("/category/{id}", async (ITopicService topic, int id) =>

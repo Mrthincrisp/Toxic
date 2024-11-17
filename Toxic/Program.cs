@@ -1,5 +1,4 @@
 using Toxic.Mapper;
-using Microsoft.AspNetCore.Http.Json;
 using Toxic.Interfaces;
 using Toxic.Repository;
 using Toxic.Services;
@@ -33,6 +32,10 @@ namespace Toxic
                 });
             });
 
+            builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+
             // allows passing datetimes without time zone data 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -53,6 +56,9 @@ namespace Toxic
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddScoped<IChatRepository, ChatRepository>();
+            builder.Services.AddScoped<IChatService, ChatService>();
+
             var app = builder.Build();
 
             app.UseCors();
@@ -69,9 +75,11 @@ namespace Toxic
             app.UseAuthorization();
             
             app.MapCategoryEndpoints();
+            app.MapChatEndpoints();
             app.MapCommentEndpoints();
             app.MapMessageEndpoints();
-            app.MapTopicEdnpoints();
+            app.MapTopicEndpoints();
+            app.MapUserEndpoints();
 
             app.Run();
         }
