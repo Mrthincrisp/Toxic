@@ -25,20 +25,17 @@ namespace Toxic.Tests.CallTests
         [Fact]
         public async Task DeleteUserChatAsync_whenCalled_ReturnsDeletedUserChatAsync()
         {
-            // Arrange
             int userId = 1;
             int chatId = 1;
 
             var userChat = new UserChat { UserId = userId, ChatId = chatId };
 
             _mockUserChatRepo.Setup(repo => repo.DeleteChatAsync(userId, chatId))
-                .ReturnsAsync(userChat); // Simulate deleting the UserChat
+                .ReturnsAsync(userChat);
 
-            // Act
             var result = await _userChatService.DeleteChatAsync(userId, chatId);
 
-            // Assert
-            Assert.NotNull(result); // Ensure a UserChat was returned
+            Assert.NotNull(result); 
             Assert.Equal(userChat.UserId, result.UserId);
             Assert.Equal(userChat.ChatId, result.ChatId);
 
