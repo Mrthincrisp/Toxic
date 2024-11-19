@@ -23,6 +23,38 @@ namespace Toxic.Endpoints
                 .WithOpenApi()
                 .Produces(StatusCodes.Status201Created)
                 .Produces(StatusCodes.Status404NotFound);
+
+            //Single chat
+            group.MapGet("/{id}", async (IChatService chat, int id) =>
+            {
+
+                var singleChat = await chat.GetChatByIdAsync(id);
+
+                if (singleChat == null)
+                {
+                    return Results.NotFound("no chat found");
+                }
+
+                return Results.Ok(singleChat);
+
+            })
+                .WithName("single chat")
+                .WithOpenApi()
+                .Produces(StatusCodes.Status200OK)
+                .Produces(StatusCodes.Status404NotFound);
+
+            //User chats
+            group.MapGet("/user/{userId}", async (IChatService chat, int userId) =>
+            {
+
+                var userChats = await chat.GetUserChats(userId);
+
+                return Results.Ok(userChats);
+
+            })
+                .WithName("user's chat")
+                .WithOpenApi()
+                .Produces(StatusCodes.Status200OK);
         }
     }
 }

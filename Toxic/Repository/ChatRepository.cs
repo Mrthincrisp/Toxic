@@ -34,7 +34,7 @@ namespace Toxic.Repository
             _context.Chats.Add(createdChat);
             await _context.SaveChangesAsync();
 
-            var userChats = users.Select(u => new UserChat
+            var userChats =  users.Select(u => new UserChat
             {
                 UserId = u.Id,
                 ChatId = createdChat.Id 
@@ -46,8 +46,36 @@ namespace Toxic.Repository
             return createdChat;
         }
 
-        // Grab all messages in a chat.
+        //Get a single chat
+        public async Task<Chat> GetChatByIdAsync(int id)
+        {
+            var singleChat = await _context.Chats.FirstOrDefaultAsync(c => c.Id == id);
 
-        //Delete a chat
+            if (singleChat == null)
+            {
+                return null;
+            }
+
+            return singleChat;
+        }
+
+        // Get a user's chats
+        public async Task<List<Chat>> GetUserChats(int userId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);  
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var userChats = await _context.UserChats
+                .Where(uc => uc.UserId == userId)
+                .Select(uc => uc.Chat)
+                .ToListAsync();
+
+            return userChats;
+
+        }
     }
 }

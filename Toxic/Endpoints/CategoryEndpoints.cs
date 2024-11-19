@@ -22,7 +22,7 @@ namespace Toxic.Endpoints
                     return Results.NotFound("No Categories found.");
                 }
 
-                return Results.Ok(categories);
+                return Results.Ok(categories.OrderBy(c => c.Title));
             })
                 .WithName("Get all categories.")
                 .WithOpenApi()

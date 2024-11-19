@@ -15,7 +15,7 @@ namespace Toxic
             // Add services to the container.
             builder.Services.AddAuthorization();
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            // builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -59,6 +59,13 @@ namespace Toxic
             builder.Services.AddScoped<IChatRepository, ChatRepository>();
             builder.Services.AddScoped<IChatService, ChatService>();
 
+            builder.Services.AddScoped<IUserChatRepository, UserChatRepository>();
+            builder.Services.AddScoped<IUserChatService, UserChatService>();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+
             var app = builder.Build();
 
             app.UseCors();
@@ -80,6 +87,7 @@ namespace Toxic
             app.MapMessageEndpoints();
             app.MapTopicEndpoints();
             app.MapUserEndpoints();
+            app.MapUserChatEndpoints();
 
             app.Run();
         }

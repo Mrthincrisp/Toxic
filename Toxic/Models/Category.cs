@@ -1,4 +1,6 @@
-﻿namespace Toxic.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Toxic.Models
 {
     public class Category
     {
