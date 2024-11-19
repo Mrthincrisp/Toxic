@@ -9,6 +9,11 @@ namespace Toxic.Services
     {
         private readonly IUserRepository _repository;
 
+        public UserService(IUserRepository userRepo)
+        {
+            _repository = userRepo;
+        }
+
         public async Task<User> UserCheckAsync(int id)
         {
             return await _repository.UserCheckAsync(id);

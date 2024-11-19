@@ -21,7 +21,18 @@ namespace Toxic.Data
                Email = "Not_Derek@gmail.com",
                Image = "image.url",
                About = "Avid music lover with a passion for discovering new artists.",
-               Admin = false}
+               Admin = false
+             },
+
+             new() { Id = 3,
+               Uid = "fuckyou",
+               UserName = "Pissoff",
+               Email = "getSmoked@gmail.com",
+               Image = "image.url",
+               About = "ur mom",
+               Admin = false,
+             }
+
         ];
     }
 }

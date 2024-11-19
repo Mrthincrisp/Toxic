@@ -38,5 +38,21 @@ namespace Toxic.Tests.CallTests
             Assert.NotNull(results);
             Assert.Equal(3, results.Count);
         }
+
+        [Fact]
+        public async Task SingleCategoryTest()
+        {
+            var category = new Category
+            {
+                Id = 1
+            };
+
+            _mockCategoryRepository.Setup(repo => repo.GetCategoryByIdAsync(category.Id));
+
+            var results = await _categoryService.GetCategoryByIdAsync(category.Id);
+
+            Assert.NotNull(results);
+            Assert.Equal(category.Id, results.Id);
+        }
     }
 }

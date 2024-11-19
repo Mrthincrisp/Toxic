@@ -104,7 +104,7 @@ namespace Toxic.Endpoints
             .Produces(StatusCodes.Status400BadRequest);
 
             // Update user
-            group.MapPut("/{id}", async (IUserService user, int id, IMapper mapper, CreateUserDTO updateDTO) =>
+            group.MapPut("/{id}", async (IUserService user, int id, IMapper mapper, UpdateUserDTO updateDTO) =>
             {
                 var validationResults = new List<ValidationResult>();
                 var validationContext = new ValidationContext(updateDTO);
@@ -115,7 +115,7 @@ namespace Toxic.Endpoints
                     return Results.BadRequest(validationResults.Select(v => v.ErrorMessage));
                 }
 
-                var updatedUser = await user.RegisterUserAsync(mapper, updateDTO);
+                var updatedUser = await user.UpdateASingleUserAsync(id, mapper, updateDTO);
 
                 if (updatedUser == null)
                 {

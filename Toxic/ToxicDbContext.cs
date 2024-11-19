@@ -12,6 +12,7 @@ namespace Toxic
         public DbSet<Comment>? Comments { get; set; }
         public DbSet<Chat>? Chats { get; set; }
         public DbSet<Category>? Categories { get; set; }
+        public DbSet<UserChat>? UserChats { get; set; }
 
         public ToxicDbContext(DbContextOptions<ToxicDbContext> context) : base(context) 
         {
@@ -28,15 +29,31 @@ namespace Toxic
             modelBuilder.Entity<Category>().HasData(CategoryData.Categories);
             modelBuilder.Entity<Chat>().HasData(ChatData.Chats);
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Chats)
-                .WithMany(c => c.Users)
-                .UsingEntity(t => t.ToTable("UserChats"));
+            modelBuilder.Entity<UserChat>()
+                .HasKey(uc => new { uc.UserId, uc.ChatId });
+
+            modelBuilder.Entity<UserChat>()
+                .HasOne(uc => uc.User)
+                .WithMany(u => u.UserChats)
+                .HasForeignKey(uc => uc.UserId);
+
+            modelBuilder.Entity<UserChat>()
+                .HasOne(uc => uc.Chat)
+                .WithMany(c => c.UserChats)
+                .HasForeignKey(uc => uc.ChatId);
 
             modelBuilder.Entity<Message>()
-                .HasOne(m => m.Users)
+                .HasOne(m => m.User)
                 .WithMany(u => u.Messages)
+                .HasForeignKey(m => m.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Chat)
+                .WithMany(c => c.Messages)
+                .HasForeignKey(m => m.ChatId)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.User)

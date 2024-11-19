@@ -16,7 +16,7 @@ namespace Toxic.Repository
         }
 
         //Create a Message
-        public async Task<Message> CreateAMessage(IMapper mapper, CreateCommentDTO createDTO)
+        public async Task<Message> CreateAMessage(IMapper mapper, CreateMessageDTO createDTO)
         {
             var message = mapper.Map<Message>(createDTO);
 
@@ -58,7 +58,7 @@ namespace Toxic.Repository
         }
 
         //Update a message
-        public async Task<Message> UpdateMessageAsync(int id, IMapper mapper, UpdateCommentDTO updateCTO)
+        public async Task<Message> UpdateMessageAsync(int id, IMapper mapper, UpdateMessageDTO updateCTO)
         {
             var updatedMessage = await _context.Messages
                 .FirstOrDefaultAsync(m => m.Id == id);

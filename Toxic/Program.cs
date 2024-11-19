@@ -1,5 +1,4 @@
 using Toxic.Mapper;
-using Microsoft.AspNetCore.Http.Json;
 using Toxic.Interfaces;
 using Toxic.Repository;
 using Toxic.Services;
@@ -16,7 +15,7 @@ namespace Toxic
             // Add services to the container.
             builder.Services.AddAuthorization();
 
-            builder.Services.AddAutoMapper(typeof(Program));
+            // builder.Services.AddAutoMapper(typeof(Program));
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,6 +31,10 @@ namespace Toxic
                     .AllowAnyHeader();
                 });
             });
+
+            builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
             // allows passing datetimes without time zone data 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -53,6 +56,16 @@ namespace Toxic
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddScoped<IChatRepository, ChatRepository>();
+            builder.Services.AddScoped<IChatService, ChatService>();
+
+            builder.Services.AddScoped<IUserChatRepository, UserChatRepository>();
+            builder.Services.AddScoped<IUserChatService, UserChatService>();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+
             var app = builder.Build();
 
             app.UseCors();
@@ -69,9 +82,12 @@ namespace Toxic
             app.UseAuthorization();
             
             app.MapCategoryEndpoints();
+            app.MapChatEndpoints();
             app.MapCommentEndpoints();
             app.MapMessageEndpoints();
-            app.MapTopicEdnpoints();
+            app.MapTopicEndpoints();
+            app.MapUserEndpoints();
+            app.MapUserChatEndpoints();
 
             app.Run();
         }

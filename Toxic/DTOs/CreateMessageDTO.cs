@@ -4,9 +4,6 @@ namespace Toxic.DTOs
 {
     public class CreateMessageDTO
     {
-        [Required(ErrorMessage = "Id is Required.")]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Content is Required.")]
         public string? Content { get; set; }
 

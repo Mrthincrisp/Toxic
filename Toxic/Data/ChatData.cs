@@ -4,10 +4,10 @@ namespace Toxic.Data
     public class ChatData
     {
         public static List<Chat> Chats =
-            [
-            new() { Id = 1, Name="First chat"},
-            new() { Id = 2, Name="Second chat"},
-            new() { Id = 3, Name="Third chat"}
-            ];
+        [
+        new Chat { Id = 1, Name = "First chat" },
+        new Chat { Id = 2, Name = "Second chat" },
+        new Chat { Id = 3, Name = "Third chat" }
+        ];
     }
 }
