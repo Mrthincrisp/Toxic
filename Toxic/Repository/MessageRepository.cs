@@ -58,12 +58,12 @@ namespace Toxic.Repository
         }
 
         //Update a message
-        public async Task<Message> UpdateMessageAsync(int id, IMapper mapper, UpdateMessageDTO updateCTO)
+        public async Task<Message> UpdateMessageAsync(int id, IMapper mapper, UpdateMessageDTO updateDTO)
         {
             var updatedMessage = await _context.Messages
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            mapper.Map(updatedMessage, updateCTO);
+            mapper.Map(updateDTO, updatedMessage);
 
             try
             {

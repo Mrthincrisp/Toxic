@@ -61,7 +61,7 @@ namespace Toxic.Repository
         //Update comment
         public async Task<Comment> UpdateCommentAsync(int id, IMapper mapper, UpdateCommentDTO updateDTO)
         {
-            var updatedComment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            var updatedComment = await _context.Comments.FindAsync(id);
 
             mapper.Map(updateDTO, updatedComment);
 

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Toxic.DTOs;
 using Toxic.Models;
 
 namespace Toxic.Interfaces
