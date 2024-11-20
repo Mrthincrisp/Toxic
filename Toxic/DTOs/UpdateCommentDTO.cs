@@ -4,7 +4,7 @@ namespace Toxic.DTOs
 {
     public class UpdateCommentDTO
     {
-        [Required(ErrorMessage = "UserId is Required.")]
+        [Required(ErrorMessage = "Content is Required.")]
         public string? Content { get; set; }
 
     }

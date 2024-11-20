@@ -106,8 +106,9 @@ namespace Toxic.Tests.CallTests
             Assert.Contains(results, t => t.Id == 1);
             Assert.Contains(results, t => t.Id == 2);
         }
-            [Fact] //Update a comment
-            public async Task UpdateComment_WhenCalled_ReturnUpdatedComment()
+
+        [Fact] //Update a comment
+        public async Task UpdateComment_WhenCalled_ReturnUpdatedComment()
             {
                 int id = 1;
 
