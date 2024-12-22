@@ -3,6 +3,7 @@ using Toxic.Interfaces;
 using Toxic.Repository;
 using Toxic.Services;
 using Toxic.Endpoints;
+using Toxic.SignalR;
 
 namespace Toxic
 {
@@ -62,6 +63,8 @@ namespace Toxic
             builder.Services.AddScoped<IUserChatRepository, UserChatRepository>();
             builder.Services.AddScoped<IUserChatService, UserChatService>();
 
+            builder.Services.AddSignalR();
+
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
             builder.Logging.AddDebug();
@@ -88,6 +91,8 @@ namespace Toxic
             app.MapTopicEndpoints();
             app.MapUserEndpoints();
             app.MapUserChatEndpoints();
+
+            app.MapHub<MessageHub>("/message-hub");
 
             app.Run();
         }
